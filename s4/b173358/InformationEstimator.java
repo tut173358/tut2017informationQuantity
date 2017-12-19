@@ -64,7 +64,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    int end = 0;;
 	    int start = end;
 	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
+		 //System.out.write(myTarget[end]);
 		end++;;
 		while(partition[end] == false) { 
 		    // System.out.write(myTarget[end]);
@@ -100,6 +100,9 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	myObject.setTarget("00".getBytes());
 	value = myObject.estimation();
 	System.out.println(">00 "+value);
+        myObject.setTarget("012".getBytes());
+        value = myObject.estimation();
+        System.out.println(">012 "+value);
     }
 }
 				  
