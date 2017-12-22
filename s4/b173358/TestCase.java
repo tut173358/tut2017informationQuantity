@@ -221,6 +221,7 @@ public class TestCase {
 		} catch (Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
+        //SPACE未定義
 		try {
 			InformationEstimatorInterface myObject1;
 			double value1;
