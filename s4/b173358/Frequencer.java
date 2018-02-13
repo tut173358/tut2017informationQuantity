@@ -128,27 +128,27 @@ public class Frequencer implements FrequencerInterface{
 	}
 */
 
-/*
+
     private void quickSort(int left, int right) {
     	int[] array = suffixArray;
 		if (left <= right) {
 			// 基準値
-			int pivotData = suffixArray[(left + right) / 2];
+			int pivotData = (left + right) / 2;
 			int leftPointer = left;
 			int rightPointer = right;
 
 			while (leftPointer <= rightPointer) {
 				// 左から基準値を超える要素を探す。（存在しない場合は基準値自体が対象となる）
-				//while (array[leftPointer] < pivotData) {
-				while (suffixCompare(leftPointer, pivotData) != 1) {
+				//while (array[leftPointer] < arry[pivotData]) {
+				while (suffixCompare(leftPointer, pivotData) == -1) {
 					leftPointer++;
-					System.out.println("1");
+					//System.out.println("1");
 				}
 				// 右から基準値を超える要素を探す。（存在しない場合は基準値自体が対象となる）
 				//while (array[rightPointer] > pivotData) {
-				while (suffixCompare(rightPointer, pivotData) != 1) {
+				while (suffixCompare(rightPointer, pivotData) == 1) {
 					rightPointer--;
-					System.out.println("2");
+					//System.out.println("2");
 				}
 
 				//if (leftPointer <= rightPointer) {
@@ -156,9 +156,16 @@ public class Frequencer implements FrequencerInterface{
 					int tmp = suffixArray[leftPointer];
 					suffixArray[leftPointer] = suffixArray[rightPointer];
 					suffixArray[rightPointer] = tmp;
+					if(leftPointer == pivotData) {
+						pivotData = rightPointer;
+					}
+					if(rightPointer == pivotData) {
+						pivotData = leftPointer;
+					}
+
 					leftPointer++;
 					rightPointer--;
-					System.out.println("3");
+					//System.out.println("3");
 				}
 			}
 			// 左半分、右半分を再帰的に呼び出す
@@ -166,7 +173,7 @@ public class Frequencer implements FrequencerInterface{
 			quickSort(leftPointer, right);
 		}
 	}
-*/
+
 
     public void setSpace(byte []space) {
         mySpace = space;
@@ -177,9 +184,9 @@ public class Frequencer implements FrequencerInterface{
         for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
         }
-        //quickSort(0, space.length-1);
+        quickSort(0, space.length-1);
 
-
+/*
         //セレクションソート
 		for (int i = 0; i < space.length; i++) {
 			int min = i;
@@ -193,7 +200,7 @@ public class Frequencer implements FrequencerInterface{
 			suffixArray[i] = suffixArray[min];
 			suffixArray[min] = tmp;
 		}
-
+*/
 /*
          //バブルソート
 	 int ans;
@@ -289,8 +296,8 @@ public class Frequencer implements FrequencerInterface{
         try {
 
             frequencerObject = new Frequencer();
-            //frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
-            frequencerObject.setSpace("                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Hi Ho Hi Ho".getBytes());
+            frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
+            //frequencerObject.setSpace("                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Hi Ho Hi Ho".getBytes());
             frequencerObject.setTarget("Ho".getBytes());
             int result = frequencerObject.frequency();
             System.out.print("Include = "+ result+" ");

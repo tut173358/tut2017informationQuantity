@@ -48,6 +48,7 @@ public class TestCase {
 		} catch (Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
+		/*
 		// TARGETの長さ0の確認
 		try {
 			FrequencerInterface myObject1;
@@ -123,11 +124,11 @@ public class TestCase {
 		} catch (Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
-        
-        
-        
-        
-        
+
+
+
+
+
 		try {
 			InformationEstimatorInterface myObject;
 			double value;
@@ -245,5 +246,6 @@ public class TestCase {
 		} catch (Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
+		*/
 	}
 }
