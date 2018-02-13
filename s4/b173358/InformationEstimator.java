@@ -23,9 +23,9 @@ public class InformationEstimator implements InformationEstimatorInterface{
     byte [] myTarget; // data to compute its information quantity
     byte [] mySpace;  // Sample space to compute the probability
     FrequencerInterface myFrequencer;  // Object for counting frequency
-    
+
     /*
-     
+
      byte [] subBytes(byte [] x, int start, int end) {
      // corresponding to substring of String for  byte[] ,
      // It is not implement in class library because internal structure of byte[] requires copy.
@@ -33,32 +33,32 @@ public class InformationEstimator implements InformationEstimatorInterface{
      for(int i = 0; i<end - start; i++) { result[i] = x[start + i]; };
      return result;
      }
-     
+
      */
-    
+
     // IQ: information quantity for a count,  -log2(count/sizeof(space))
     double iq(int freq) {
         return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
     }
-    
+
     public void setTarget(byte [] target) { myTarget = target; if(target.length>0) targetReady = true;}
     public void setSpace(byte []space) {
         myFrequencer = new Frequencer();
         mySpace = space; myFrequencer.setSpace(space);
         spaceReady = true;
     }
-    
+
     public double estimation(){
-        
+
         if(targetReady == false) return (double) 0.0;
         if(spaceReady == false) return Double.MAX_VALUE;
-        
+
         myFrequencer.setTarget(myTarget);
-        
+
         double [] prefixEstimation = new double[myTarget.length+1];
-        
+
         prefixEstimation[0] = (double) 0.0; //IE("") = 0.0;
-        
+
         for(int n=1;n<=myTarget.length;n++) {
             // target = "abcdef..", n = 4 for example, subByte(0, 4) = "abcd",
             // IE("abcd") = min( IE("")+iq(#"abcd"),
@@ -88,14 +88,14 @@ public class InformationEstimator implements InformationEstimatorInterface{
             prefixEstimation[n]=value;
         }
         return prefixEstimation[myTarget.length];
-        
+
         /*
          boolean [] partition = new boolean[myTarget.length+1];
          int np;
          np = 1<<(myTarget.length-1);
          // System.out.println("np="+np+" length="+myTarget.length);
          double value = Double.MAX_VALUE; // value = mininimum of each "value1".
-         
+
          for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
          // binary representation of p forms partition.
          // for partition {"ab" "cde" "fg"}
@@ -106,7 +106,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
          partition[i+1] = (0 !=((1<<i) & p));
          }
          partition[myTarget.length] = true;
-         
+
          // Compute Information Quantity for the partition, in "value1"
          // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
          double value1 = (double) 0.0;
@@ -127,14 +127,14 @@ public class InformationEstimator implements InformationEstimatorInterface{
          start = end;
          }
          // System.out.println(" "+ value1);
-         
+
          // Get the minimal value in "value"
          if(value1 < value) value = value1;
          }
          return value;
          */
     }
-    
+
     public static void main(String[] args) {
         InformationEstimator myObject;
         double value;
