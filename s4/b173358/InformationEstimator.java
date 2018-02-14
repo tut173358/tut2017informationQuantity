@@ -44,8 +44,17 @@ public class InformationEstimator implements InformationEstimatorInterface{
     public void setTarget(byte [] target) { myTarget = target; if(target.length>0) targetReady = true;}
     public void setSpace(byte []space) {
         myFrequencer = new Frequencer();
-        mySpace = space; myFrequencer.setSpace(space);
-        spaceReady = true;
+        mySpace = space;
+        //myFrequencer.setSpace(space);
+        //spaceReady = true;
+
+
+        if(space.length>0){
+            myFrequencer.setSpace(space);
+            spaceReady = true;
+        }
+
+
     }
 
     public double estimation(){

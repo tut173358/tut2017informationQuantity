@@ -131,6 +131,9 @@ public class Frequencer implements FrequencerInterface{
 
     private void quickSort(int left, int right) {
     	int[] array = suffixArray;
+    	if (left>=right) {
+            return;
+        }
 		if (left <= right) {
 			// 基準値
 			int pivotData = (left + right) / 2;
@@ -138,6 +141,7 @@ public class Frequencer implements FrequencerInterface{
 			int rightPointer = right;
 
 			while (leftPointer <= rightPointer) {
+				//if(leftPointer == rightPointer) break;
 				// 左から基準値を超える要素を探す。（存在しない場合は基準値自体が対象となる）
 				//while (array[leftPointer] < arry[pivotData]) {
 				while (suffixCompare(leftPointer, pivotData) == -1) {
@@ -200,8 +204,7 @@ public class Frequencer implements FrequencerInterface{
 			suffixArray[i] = suffixArray[min];
 			suffixArray[min] = tmp;
 		}
-*/
-/*
+
          //バブルソート
 	 int ans;
 	int subsuffix;
@@ -248,11 +251,20 @@ public class Frequencer implements FrequencerInterface{
     private int subByteStartIndex(int start, int end) {
 	int spaceLength = mySpace.length;
 	int startposition;
-	for(int offset = 0; offset< spaceLength; offset++) {
-	    startposition = targetCompare(offset, start, end);
-	    if (startposition == 0) {
-		return offset;
-	    }
+	int diff = spaceLength/10;
+	for(int offset1 = 0; offset1< spaceLength; offset1 = offset1 + diff) {
+		int dicide = targetCompare(offset1, start, end) ;
+		if(dicide == 1) {
+			for(int offset2 = offset1 - diff; offset2< spaceLength; offset2++) {
+				startposition = targetCompare(offset2, start, end);
+				if (startposition == 0) {
+					return offset2;
+				}
+			}
+		}
+		if(dicide == 0) {
+			return offset1;
+		}
 	}
 	return 0;
     }
@@ -260,15 +272,51 @@ public class Frequencer implements FrequencerInterface{
     private int subByteEndIndex(int start, int end) {
         int spaceLength = mySpace.length;
         int startposition;
-        for(int offset = spaceLength-1; offset >= 0; offset--) {
-            startposition = targetCompare(offset, start, end);
-            if (startposition == 0) {
-                return offset+1;
-            }
+        int diff = spaceLength/10;
+        for(int offset1 = spaceLength-1; offset1 >= 0; offset1 = offset1 - diff) {
+    		int dicide = targetCompare(offset1, start, end) ;
+    		if(dicide == -1) {
+    			for(int offset2 = offset1 + diff; offset2 >= 0; offset2--) {
+    				startposition = targetCompare(offset2, start, end);
+    				if (startposition == 0) {
+    					return offset2+1;
+    				}
+    			}
+    		}
+
+    		if(dicide == 0) {
+				return offset1+1;
+			}
         }
 	return 0;
     }
 
+
+/*
+    private int subByteStartIndex(int start, int end) {
+    	int spaceLength = mySpace.length;
+    	int startposition;
+    	for(int offset = 0; offset< spaceLength; offset++) {
+    	    startposition = targetCompare(offset, start, end);
+    	    if (startposition == 0) {
+    		return offset;
+    	    }
+    	}
+    	return 0;
+        }
+
+        private int subByteEndIndex(int start, int end) {
+            int spaceLength = mySpace.length;
+            int startposition;
+            for(int offset = spaceLength-1; offset >= 0; offset--) {
+                startposition = targetCompare(offset, start, end);
+                if (startposition == 0) {
+                    return offset+1;
+                }
+            }
+    	return 0;
+        }
+*/
     public int subByteFrequency(int start, int end) {
         int first = subByteStartIndex(start,end);
         int last1 = subByteEndIndex(start, end);
