@@ -136,7 +136,8 @@ public class Frequencer implements FrequencerInterface{
         }
 		if (left <= right) {
 			// 基準値
-			int pivotData = (left + right) / 2;
+			int pivotData = (left + right) / 2 + 1;
+			//int pivotData = right;
 			int leftPointer = left;
 			int rightPointer = right;
 
